@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@ExtendWith(ResultAnalyzer.class)
+@ExtendWith(com.workintech.s17d2.ResultAnalyzer.class)
 class MainTest {
 
 
@@ -348,10 +348,13 @@ class MainTest {
                 .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()));
     }
 
-    @Test
     @DisplayName("ZooGlobalExceptionHandler:HandleGenericException")
+    @Test
     void testHandleGenericException() throws Exception {
+
+
     Kangaroo invalidKangaroo = new Kangaroo();
+
     mockMvc.perform(post("/kangaroos")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(objectMapper.writeValueAsString(invalidKangaroo)))
